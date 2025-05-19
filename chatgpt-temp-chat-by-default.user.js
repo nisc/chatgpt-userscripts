@@ -1,5 +1,6 @@
 // ==UserScript==
 // @name         ChatGPT Temp Chat By Default
+// @namespace    nisc
 // @version      0.5
 // @description  Automatically selects temporary mode on ChatGPT's new prompt page once per page load or URL change
 // @author       nisc
