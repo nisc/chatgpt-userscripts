@@ -1,8 +1,7 @@
 // ==UserScript==
 // @name         ChatGPT Temp Chat By Default
-// @namespace    nisc
-// @version      0.5
-// @description  Automatically selects temporary mode on ChatGPT's new prompt page once per page load or URL change
+// @description  Automatically enables temporary mode on ChatGPT unless manually disabled by the user
+// @version      0.6
 // @author       nisc
 // @match        https://chatgpt.com/*
 // @icon         https://chatgpt.com/favicon.ico
@@ -12,53 +11,83 @@
 (function() {
     'use strict';
 
+    // Flag to track if user has manually disabled temporary chat
+    let userDisabledTempChat = false;
+
+    // Helper function to get the temporary chat button
+    function getTempChatButton() {
+        return document.querySelector('button[aria-label*="temporary chat"]');
+    }
+
+    // Function to enable temporary chat mode
     function activateTemporaryMode() {
-        const params = new URLSearchParams(window.location.search);
-        const currentPathname = window.location.pathname;
+        if (userDisabledTempChat) return;
 
-        // Only activate if not already temporary and not previously activated on this pathname
-        if ((!params.has('temporary-chat') || params.get('temporary-chat') !== 'true') &&
-            (!window._lastActivatedPathname || window._lastActivatedPathname !== currentPathname)) {
-            let attempts = 0;
-            const maxAttempts = 5;
-            const interval = 500; // 500ms delay between attempts
+        let attempts = 0;
+        const maxAttempts = 5;
+        const interval = 500;
 
-            const tryClickButton = setInterval(() => {
-                const buttons = document.querySelectorAll('button');
-                for (const button of buttons) {
-                    if (button.textContent.trim() === 'Temporary') {
-                        button.click();
-                        clearInterval(tryClickButton);
-                        window._lastActivatedPathname = currentPathname; // Record this pathname
-                        return;
-                    }
+        const tryFindButton = setInterval(() => {
+            const tempChatButton = getTempChatButton();
+            if (tempChatButton) {
+                // Add listener to detect manual disabling
+                if (!tempChatButton._hasListener) {
+                    tempChatButton.addEventListener('click', function() {
+                        userDisabledTempChat = this.getAttribute('aria-label') === 'Turn off temporary chat';
+                    });
+                    tempChatButton._hasListener = true;
                 }
-                attempts++;
-                if (attempts >= maxAttempts) {
-                    clearInterval(tryClickButton);
+                // Enable temporary chat if it’s off
+                if (tempChatButton.getAttribute('aria-label') === 'Turn on temporary chat') {
+                    tempChatButton.click();
                 }
-            }, interval);
+                clearInterval(tryFindButton);
+            } else if (attempts++ >= maxAttempts) {
+                clearInterval(tryFindButton);
+            }
+        }, interval);
+    }
+
+    // Set up MutationObserver to detect new chats via DOM changes
+    function setupMutationObserver() {
+        const targetNode = document.querySelector('#conversation-header-actions') || document.body;
+        const observer = new MutationObserver(() => {
+            const tempChatButton = getTempChatButton();
+            if (tempChatButton && tempChatButton.getAttribute('aria-label') === 'Turn on temporary chat') {
+                userDisabledTempChat = false; // Reset for new chat
+                activateTemporaryMode();
+            }
+        });
+        observer.observe(targetNode, { childList: true, subtree: true });
+    }
+
+    // Common handler for history state changes
+    function handleStateChange() {
+        if (window.location.pathname.startsWith('/c/')) {
+            userDisabledTempChat = false;
+            activateTemporaryMode();
         }
     }
 
-    // Wrap history.pushState and history.replaceState to trigger on URL changes
+    // Detect URL changes for chats like /c/<chat_id>
     if (!window._historyWrapped) {
         const originalPushState = history.pushState;
         history.pushState = function() {
             originalPushState.apply(this, arguments);
-            activateTemporaryMode();
+            handleStateChange();
         };
 
         const originalReplaceState = history.replaceState;
         history.replaceState = function() {
             originalReplaceState.apply(this, arguments);
-            activateTemporaryMode();
+            handleStateChange();
         };
-
         window._historyWrapped = true;
     }
 
+    // Initialize on page load
     window.addEventListener('load', function() {
+        setupMutationObserver();
         activateTemporaryMode();
     });
 })();
