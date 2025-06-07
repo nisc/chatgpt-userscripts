@@ -16,6 +16,7 @@ Welcome to the ChatGPT Userscripts repository! This collection includes various 
 - Data loss or corruption
 - Browser performance problems
 - Any changes to ChatGPT's functionality or behavior
+- Terms of Service violations
 
 ## Installation Instructions
 
@@ -41,21 +42,19 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Additional Notes
 
-1. **Terms of Service & Security**:
-   - Review ChatGPT's Terms of Service before using any userscripts
+1. **Security & Maintenance**:
    - Review script code before installation
-   - Keep your userscript manager and scripts updated
-   - Using third-party scripts may violate Terms of Service
+   - Keep all components (scripts, userscript manager) updated
+   - Report security concerns via issues
 
 2. **Performance & Compatibility**:
    - Scripts may behave differently across browsers and systems
    - Scripts may conflict with each other or extensions
    - Report compatibility issues
 
-3. **Updates & Maintenance**:
+3. **Future Changes**:
    - Scripts may need updates when ChatGPT changes
-   - Check regularly for updates and patches
-   - Consider contributing fixes
    - Features may become officially supported
+   - Consider contributing fixes
 
 By installing and using these scripts, you acknowledge that you do so at your own risk. The authors and contributors cannot be held liable for any issues that may arise from their use. 
