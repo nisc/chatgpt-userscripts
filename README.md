@@ -1,1 +1,61 @@
-I like turtles
+# ChatGPT Userscripts
+
+- [Introduction](#introduction)
+- [Installation Instructions](#installation-instructions)
+- [Available Scripts](#available-scripts)
+- [Contributing](#contributing)
+- [License](#license)
+- [Additional Notes](#additional-notes)
+
+## Introduction
+
+Welcome to the ChatGPT Userscripts repository! This collection includes various user scripts designed to enhance your experience with ChatGPT, the AI assistant developed by OpenAI. For more information on ChatGPT and its capabilities, visit the [official OpenAI website](https://openai.com). **Please note that I am in no way affiliated with OpenAI.**
+
+⚠️ **DISCLAIMER**: These scripts are provided "AS IS" without warranty of any kind. Use them at your own risk. The authors are not responsible for any consequences of using these scripts, including but not limited to:
+- Account-related issues
+- Data loss or corruption
+- Browser performance problems
+- Any changes to ChatGPT's functionality or behavior
+
+## Installation Instructions
+
+1. Install a userscript manager like [Violentmonkey](https://violentmonkey.github.io/)
+2. Click on any script in the list below to install it, or manually add scripts using your userscript manager's "Install from URL" feature
+
+These scripts have been tested with Firefox and Violentmonkey on macOS, but should work with other browsers and userscript managers as well.
+
+## Available Scripts
+
+| Script Name | Description |
+|-------------|-------------|
+| [`chatgpt-easy-delete-chat.user.js`](chatgpt-easy-delete-chat.user.js) | Enables quick deletion of chats on chat.openai.com using Cmd/Ctrl+Shift+Delete, with automatic confirmation of the deletion prompt. |
+| [`chatgpt-temp-chat-by-default.user.js`](chatgpt-temp-chat-by-default.user.js) | Automatically redirects to the temporary chat mode on chat.openai.com when accessing the root path (`/`) or `/chat`. |
+
+## Contributing
+
+Submit a pull request or open an issue to discuss your ideas for improvements.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Additional Notes
+
+1. **Terms of Service & Security**:
+   - Review ChatGPT's Terms of Service before using any userscripts
+   - Review script code before installation
+   - Keep your userscript manager and scripts updated
+   - Using third-party scripts may violate Terms of Service
+
+2. **Performance & Compatibility**:
+   - Scripts may behave differently across browsers and systems
+   - Scripts may conflict with each other or extensions
+   - Report compatibility issues
+
+3. **Updates & Maintenance**:
+   - Scripts may need updates when ChatGPT changes
+   - Check regularly for updates and patches
+   - Consider contributing fixes
+   - Features may become officially supported
+
+By installing and using these scripts, you acknowledge that you do so at your own risk. The authors and contributors cannot be held liable for any issues that may arise from their use. 
