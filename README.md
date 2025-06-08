@@ -31,6 +31,7 @@ These scripts have been tested with Firefox and Violentmonkey on macOS, but shou
 |-------------|-------------|
 | [`chatgpt-easy-delete-chat.user.js`](chatgpt-easy-delete-chat.user.js) | Enables quick deletion of chats on chat.openai.com using Cmd/Ctrl+Shift+Delete, with automatic confirmation of the deletion prompt. |
 | [`chatgpt-temp-chat-by-default.user.js`](chatgpt-temp-chat-by-default.user.js) | Automatically redirects to the temporary chat mode on chat.openai.com when accessing the root path (`/`) or `/chat`. |
+| [`chatgpt-think-shortcut.user.js`](chatgpt-think-shortcut.user.js) | Adds keyboard shortcut (Cmd/Ctrl+Shift+D) to quickly toggle ChatGPT's "Think for longer" mode without using the mouse. |
 
 ## Contributing
 
