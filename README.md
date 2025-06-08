@@ -58,4 +58,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
    - Features may become officially supported
    - Consider contributing fixes
 
-By installing and using these scripts, you acknowledge that you do so at your own risk. The authors and contributors cannot be held liable for any issues that may arise from their use. 
+By installing and using these scripts, you acknowledge that you do so at your own risk. The authors and contributors cannot be held liable for any issues that may arise from their use.
