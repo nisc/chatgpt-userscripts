@@ -4,6 +4,7 @@
 // @version      2025.06.08-B
 // @description  Activate ChatGPT Thinking mode with Cmd/Ctrl+Shift+D.
 // @homepageURL  https://github.com/nisc/chatgpt-userscripts/
+// @downloadURL  https://raw.githubusercontent.com/nisc/chatgpt-userscripts/main/chatgpt-think-shortcut.user.js
 // @author       nisc
 // @match        https://chatgpt.com/*
 // @icon         https://chatgpt.com/favicon.ico
