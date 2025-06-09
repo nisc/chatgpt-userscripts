@@ -1,10 +1,10 @@
 // ==UserScript==
-// @name         ChatGPT Easy Delete Chat
+// @name         ChatGPT Delete Chat Shortcut
 // @namespace    nisc
-// @version      2025.06.08-B
+// @version      2025.06.09-A
 // @description  Delete ChatGPT chat with only Cmd/Ctrl+Shift+Delete, auto-confirms popup.
 // @homepageURL  https://github.com/nisc/chatgpt-userscripts/
-// @downloadURL  https://raw.githubusercontent.com/nisc/chatgpt-userscripts/main/chatgpt-easy-delete-chat.user.js
+// @downloadURL  https://raw.githubusercontent.com/nisc/chatgpt-userscripts/main/chatgpt-delete-chat-shortcut.user.js
 // @author       nisc
 // @match        https://chatgpt.com/*
 // @icon         https://chatgpt.com/favicon.ico
@@ -32,7 +32,8 @@
    * @returns {boolean} True if on an active chat page
    */
   const isChatPage = () =>
-    window.location.pathname.startsWith('/c/') && !window.location.hash.startsWith('#settings');
+    (window.location.pathname.startsWith('/c/') || window.location.search.includes('temporary-chat=true')) &&
+    !window.location.hash.startsWith('#settings');
 
   // Listen for the keyboard shortcut
   document.addEventListener('keydown', e => {
