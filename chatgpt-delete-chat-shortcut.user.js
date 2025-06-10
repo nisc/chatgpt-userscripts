@@ -2,7 +2,7 @@
 // @name         ChatGPT Delete Chat Shortcut
 // @namespace    nisc
 // @version      2025.06.09-A
-// @description  Delete ChatGPT chat with only Cmd/Ctrl+Shift+Delete, auto-confirms popup.
+// @description  Delete ChatGPT chat with only Cmd/Ctrl+Shift+Delete, auto-confirms popup
 // @homepageURL  https://github.com/nisc/chatgpt-userscripts/
 // @downloadURL  https://raw.githubusercontent.com/nisc/chatgpt-userscripts/main/chatgpt-delete-chat-shortcut.user.js
 // @author       nisc

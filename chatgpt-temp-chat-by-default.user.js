@@ -2,7 +2,7 @@
 // @name         ChatGPT Temp Chat By Default
 // @namespace    nisc
 // @version      2025.06.08-B
-// @description  Automatically enables temporary mode on ChatGPT unless manually disabled by the user.
+// @description  Automatically enables temporary mode on ChatGPT unless manually disabled by the user
 // @homepageURL  https://github.com/nisc/chatgpt-userscripts/
 // @downloadURL  https://raw.githubusercontent.com/nisc/chatgpt-userscripts/main/chatgpt-temp-chat-by-default.user.js
 // @author       nisc

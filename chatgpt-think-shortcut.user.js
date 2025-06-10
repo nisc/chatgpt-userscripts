@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         ChatGPT Think Shortcut
 // @namespace    nisc
-// @version      2025.06.08-B
-// @description  Activate ChatGPT Thinking mode with Cmd/Ctrl+Shift+D.
+// @version      2025.06.09-A
+// @description  Activate ChatGPT Thinking mode with Ctrl+Cmd+T (macOS) or Ctrl+Alt+T (Windows/Linux)
 // @homepageURL  https://github.com/nisc/chatgpt-userscripts/
 // @downloadURL  https://raw.githubusercontent.com/nisc/chatgpt-userscripts/main/chatgpt-think-shortcut.user.js
 // @author       nisc
@@ -18,8 +18,9 @@
   // Configuration object for all customizable settings
   const CONFIG = {
     shortcut: {
-      key: 'd',
-      requireShift: true
+      key: 't',
+      requireShift: false,
+      requireCtrl: true
     },
     selectors: {
       // Button that opens the tools menu
@@ -79,9 +80,9 @@
   document.addEventListener('keydown', e => {
     // Check if the shortcut combination is pressed
     if (e.key.toLowerCase() === CONFIG.shortcut.key &&
-        (navigator.userAgent.includes('Mac') ? e.metaKey : e.ctrlKey) &&
+        (navigator.userAgent.includes('Mac') ? e.metaKey : e.altKey) &&
         e.shiftKey === CONFIG.shortcut.requireShift &&
-        !e.altKey) {
+        e.ctrlKey === CONFIG.shortcut.requireCtrl) {
 
       e.preventDefault();
       e.stopPropagation();
