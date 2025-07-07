@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ChatGPT Think Shortcut
 // @namespace    nisc
-// @version      2025.06.09-A
+// @version      2025.07.07-A
 // @description  Activate ChatGPT Thinking mode with Ctrl+Cmd+T (macOS) or Ctrl+Alt+T (Windows/Linux)
 // @homepageURL  https://github.com/nisc/chatgpt-userscripts/
 // @downloadURL  https://raw.githubusercontent.com/nisc/chatgpt-userscripts/main/chatgpt-think-shortcut.user.js
@@ -12,10 +12,10 @@
 // @grant        none
 // ==/UserScript==
 
-(function() {
+(function () {
   'use strict';
 
-  // Configuration object for all customizable settings
+  // Configuration
   const CONFIG = {
     shortcut: {
       key: 't',
@@ -23,29 +23,18 @@
       requireCtrl: true
     },
     selectors: {
-      // Button that opens the tools menu
       toolsButton: 'button#system-hint-button',
-      // Selectors for both new chat and existing chat menu structures
       toolsPopupMenu: [
         'div[data-side="bottom"][role="menu"][data-radix-menu-content]',
         'div[data-radix-popper-content-wrapper] div[role="menu"]'
       ],
-      // Menu item elements
       thinkMenuItem: 'div[role="menuitemradio"]',
-      thinkMenuItemText: 'div.flex.min-w-0.grow.items-center.gap-2'
+      thinkMenuItemText: 'div.flex.min-w-0.grow.items-center.gap-2\\.5 div.truncate'
     },
-    // Text to match for the "Think longer" option
     text: 'Think for longer',
-    // Delay before attempting to find and click menu item (ms)
     delay: 75
   };
 
-  /**
-   * Finds a menu item by its text content
-   * @param {HTMLElement} menu - The menu element to search in
-   * @param {string} text - The text to search for
-   * @returns {HTMLElement|undefined} The found menu item or undefined
-   */
   function findMenuItemByText(menu, text) {
     return Array.from(menu.querySelectorAll(CONFIG.selectors.thinkMenuItem))
       .find(item => {
@@ -54,18 +43,10 @@
       });
   }
 
-  /**
-   * Simulates a full interaction with a Radix UI element
-   * @param {HTMLElement} element - The element to interact with
-   * @param {Object} options - Options for the interaction
-   * @param {boolean} options.isButton - Whether the element is a button
-   */
   function simulateRadixInteraction(element, { isButton = false } = {}) {
-    // Set appropriate ARIA attributes based on element type
     element.setAttribute('data-state', isButton ? 'open' : 'checked');
     element.setAttribute(isButton ? 'aria-expanded' : 'aria-checked', 'true');
 
-    // Simulate all necessary pointer events in sequence
     ['pointerover', 'pointerenter', 'pointerdown', 'pointerup', 'click'].forEach(eventType => {
       element.dispatchEvent(new PointerEvent(eventType, {
         bubbles: true,
@@ -78,11 +59,10 @@
 
   // Add keyboard shortcut listener
   document.addEventListener('keydown', e => {
-    // Check if the shortcut combination is pressed
     if (e.key.toLowerCase() === CONFIG.shortcut.key &&
-        (navigator.userAgent.includes('Mac') ? e.metaKey : e.altKey) &&
-        e.shiftKey === CONFIG.shortcut.requireShift &&
-        e.ctrlKey === CONFIG.shortcut.requireCtrl) {
+      (navigator.userAgent.includes('Mac') ? e.metaKey : e.altKey) &&
+      e.shiftKey === CONFIG.shortcut.requireShift &&
+      e.ctrlKey === CONFIG.shortcut.requireCtrl) {
 
       e.preventDefault();
       e.stopPropagation();
@@ -95,13 +75,11 @@
 
       // Wait for menu to appear, then find and click the "Think longer" option
       setTimeout(() => {
-        // Try both selector patterns and combine results
         let menus = [];
         CONFIG.selectors.toolsPopupMenu.forEach(selector => {
           menus = menus.concat(Array.from(document.querySelectorAll(selector)));
         });
 
-        // Get the last menu (most recently opened)
         const menu = menus[menus.length - 1];
         if (!menu) return;
 
