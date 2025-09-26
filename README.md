@@ -11,12 +11,6 @@
 
 This collection includes various user scripts designed to enhance your experience with ChatGPT, the AI assistant developed by OpenAI. For more information on ChatGPT and its capabilities, visit the [official OpenAI website](https://openai.com). **Please note that I am in no way affiliated with OpenAI.**
 
-⚠️ **DISCLAIMER**: These scripts are provided "AS IS" without warranty of any kind. Use them at your own risk. The authors are not responsible for any consequences of using these scripts, including but not limited to:
-- Account-related issues
-- Data loss or corruption
-- Any changes to ChatGPT's functionality or behavior
-- Terms of Service violations
-
 ## Installation Instructions
 
 1. Install a userscript manager like [Violentmonkey](https://violentmonkey.github.io/)
