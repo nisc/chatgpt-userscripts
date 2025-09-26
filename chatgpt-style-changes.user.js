@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ChatGPT Style Changes
 // @namespace    nisc
-// @version      2025.09.25-A
+// @version      2025.09.25-B
 // @description  Various style changes to the ChatGPT UI
 // @homepageURL  https://github.com/nisc/chatgpt-userscripts/
 // @downloadURL  https://raw.githubusercontent.com/nisc/chatgpt-userscripts/main/chatgpt-style-changes.user.js
@@ -21,50 +21,36 @@
       '--user-chat-width': '85%',
       '--sidebar-width': '200px'
     },
+    styles: `
+      #prompt-textarea {
+        max-height: 160px;
+        overflow-y: auto;
+      }
+    `,
     reapplyDelay: 100
   };
 
-  function applyStyleChanges() {
-    // Apply CSS custom properties to root
-    const root = document.documentElement;
+  function applyStyles() {
+    // Apply CSS custom properties
     Object.entries(CONFIG.customProperties).forEach(([property, value]) => {
-      root.style.setProperty(property, value);
+      document.documentElement.style.setProperty(property, value);
     });
+
+    // Apply CSS styles
+    document.getElementById('chatgpt-style-changes')?.remove();
+    const style = Object.assign(document.createElement('style'), {
+      id: 'chatgpt-style-changes',
+      textContent: CONFIG.styles
+    });
+    document.head.appendChild(style);
   }
 
-  // Apply changes immediately
-  applyStyleChanges();
+  // Apply styles immediately and on changes
+  applyStyles();
 
-  // Reapply changes when new content is loaded (for SPA behavior)
-  const observer = new MutationObserver((mutations) => {
-    let shouldReapply = false;
+  const reapply = () => setTimeout(applyStyles, CONFIG.reapplyDelay);
 
-    mutations.forEach((mutation) => {
-      if (mutation.type === 'childList') {
-        // Check if any new content was added
-        mutation.addedNodes.forEach((node) => {
-          if (node.nodeType === Node.ELEMENT_NODE) {
-            shouldReapply = true;
-          }
-        });
-      }
-    });
-
-    if (shouldReapply) {
-      setTimeout(applyStyleChanges, CONFIG.reapplyDelay);
-    }
-  });
-
-  // Start observing
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true
-  });
-
-  // Also reapply on page visibility change (in case of navigation)
-  document.addEventListener('visibilitychange', () => {
-    if (!document.hidden) {
-      setTimeout(applyStyleChanges, CONFIG.reapplyDelay);
-    }
-  });
+  // Reapply on DOM changes and visibility changes
+  new MutationObserver(() => reapply()).observe(document.body, { childList: true, subtree: true });
+  document.addEventListener('visibilitychange', () => !document.hidden && reapply());
 })();
